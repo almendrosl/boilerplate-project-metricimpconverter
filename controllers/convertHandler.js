@@ -11,17 +11,17 @@ const lbsToKg = 0.453592;
 const miToKm = 1.60934;
 const REGEX = /[^\d./-]/;
 const ValidUnits = {
-  L: {
+  l: {
     name: "liters",
     convertUnit: "gal",
     convertComplete: "gallons",
-    conversion: initNum => initNum * galToL
+    conversion: initNum => initNum / galToL
   },
   gal: {
     name: "gallons",
-    convertUnit: "L",
+    convertUnit: "l",
     convertComplete: "liters",
-    conversion: initNum => initNum / galToL
+    conversion: initNum => initNum * galToL
   },
   lbs: {
     name: "pounds",
@@ -54,11 +54,19 @@ function ConvertHandler() {
 
     const stringNumber = input.slice(0, numIndex);
 
-    let result = eval(stringNumber);
+    const numArr = stringNumber.split("/");
+
+    let result = 0;
+
+    if ( numArr.length > 1) {
+      result = parseFloat(numArr[0], 10) / parseFloat(numArr[1], 10);
+    } else {
+      result = parseFloat(numArr[0]);
+    }
 
     if (result === "") result = 1;
 
-    if (result <= 0) result = "invalid number";
+    if (!result || result <= 0) result = "invalid number";
 
     return result;
   };
@@ -66,7 +74,7 @@ function ConvertHandler() {
   this.getUnit = function(input) {
     const numIndex = input.search(REGEX);
 
-    var result = input.slice(numIndex);
+    var result = input.slice(numIndex).toLowerCase();
 
     if (!ValidUnits[result]) result = "invalid unit";
 
