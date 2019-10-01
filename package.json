@@ -8,7 +8,8 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js",
-		"dev": "env-cmd node ./server.js"
+		"dev": "env-cmd node ./server.js",
+		"debug": "env-cmd node --nolazy --inspect-brk=9229 ./server.js"
 	},
 	"dependencies": {
 		"body-parser": "^1.15.2",
