@@ -47,7 +47,7 @@ suite('Unit Tests', function(){
     });
     
     test('No Numerical Input', function(done) {
-      const input = '$$%/km'
+      const input = '-56km'
       assert.equal(convertHandler.getNum(input), "invalid number");
       done();
     }); 

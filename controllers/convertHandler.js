@@ -58,13 +58,13 @@ function ConvertHandler() {
 
     let result = 0;
 
-    if ( numArr.length > 1) {
+    if (numArr.length === 2) {
       result = parseFloat(numArr[0], 10) / parseFloat(numArr[1], 10);
-    } else {
+    } else if (numArr.length === 1){
       result = parseFloat(numArr[0]);
     }
 
-    if (result === "") result = 1;
+    if (stringNumber === "") result = 1;
 
     if (!result || result <= 0) result = "invalid number";
 
@@ -100,14 +100,17 @@ function ConvertHandler() {
   };
 
   this.getString = function(initNum, initUnit, returnNum, returnUnit) {
+    const unitView = initUnit === "l" ? "L" : initUnit;
     var result = {
       initNum: initNum,
-      initUnit: initUnit,
+      initUnit: unitView,
       returnNum: returnNum,
       returnUnit: returnUnit,
       string: `${initNum} ${this.spellOutUnit(
         initUnit
-      )} converts to ${returnNum.toFixed(NUM_DECIMALS)} ${this.spellOutUnit(returnUnit)}`
+      )} converts to ${returnNum.toFixed(NUM_DECIMALS)} ${this.spellOutUnit(
+        returnUnit
+      )}`
     };
 
     return result;
